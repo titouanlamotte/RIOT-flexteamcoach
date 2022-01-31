@@ -216,19 +216,6 @@ class masterdata:
 
 def main():
 
-    team =     [
-    "Le Jer","Rick Kirck","NarNic","MrBambou","MarleyKings",
-    "IkBenTrunken","MaziTFT","Chris Staline",
-    "leborouxdescoeur","Wialaë","Cartuosoruse","Margoul1n",
-    "Ives côtede porc","efasten","h0llyztw","Crilik",
-    "nesuw","shröding3r","Carlòtta","wissvalere","yatan",
-    "yataan","NarNic","Langelus83","ADCovayn19",
-    "Synanai","twittmann","twittmannx",
-    "Forddead","ExÖtiik Giirl","Gilbert","ChMeunou",
-    "SushiKali","Orodeluna","Moroes","WBlade ll","Shinjow",
-    "Αrva","Cfordead","siournayme"
-    ]
-
     job = masterdata()
     #job.addsummoner(team)
     job.addleague()

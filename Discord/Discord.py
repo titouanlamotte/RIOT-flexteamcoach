@@ -1,14 +1,10 @@
-#import os
-#import time
 import discord
 from discord.ext import commands
 #from discord import Spotify
+
 from pprint import pprint
 
-#import html2text
 import secrets
-#import databases
-#import requests
 
 # -*- coding: utf-8 -*-
 

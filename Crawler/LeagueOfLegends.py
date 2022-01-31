@@ -368,13 +368,6 @@ class masterdata:
 
 def main():
 
-    team =     [
-    "Le Jer","Rick Kirck","NarNic","MrBambou","MarleyKings","IkBenTrunken",
-    "Chris Staline","leborouxdescoeur","Wialaë","Cartuosoruse","Margoul1n","Ives côtede porc",
-    "efasten","h0llyztw","Crilik","nesuw","shröding3r","Carlòtta","wissvalere","yatan","yataan",
-    "Langelus83","ADCovayn19","Synanai","MrBambou","twittmann","twittmannx","Forddead","ExÖtiik Giirl",
-    "Gilbert","ChMeunou","SushiKali","Orodeluna","Moroes","Shinjow","Αrva","Cfordead","siournayme"
-    ]
     job = masterdata()
     #job.addsummoner()
     job.queues()
