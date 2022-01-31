@@ -1,3 +1,11 @@
+# titouanlamotte/RIOT-flexteamcoach
+secrets.py
+config.py
+databases.py
+*/secrets.py
+*/config.py
+*/databases.py
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
