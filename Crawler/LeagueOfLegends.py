@@ -1,36 +1,25 @@
-#import this
-from unittest import result
-import requests
+
 import time
-import datetime
 from datetime import date
 from pprint import pprint
-import html2text
+
 
 from random import randint
 import json
 
-from secrets import LOLheaders
+import Consummer
+import secrets
 from databases import *
 
-
-ids=[]
-var=""
-cursor = conn.cursor()
-
-
-def check_sql_string(sql, values):
-    unique = "%PARAMETER%"
-    sql = sql.replace("%s", unique)
-    for v in values: sql = sql.replace(unique, repr(v), 1)
-    return sql
 
 class masterdata:
     cursor = conn.cursor()
 
     def champions(self):
         #https://ddragon.leagueoflegends.com/cdn/10.15.1/data/en_US/champion.json
-        r = requests.get('http://ddragon.leagueoflegends.com/cdn/10.15.1/data/en_US/champion.json')
+        r = Consummer.getcall('http://ddragon.leagueoflegends.com/cdn/10.15.1/data/en_US/champion.json','')
+        if r == False:
+            return 0
         champs=r.json()
         for d in champs['data']:
             cursor = conn.cursor()
@@ -74,7 +63,9 @@ class masterdata:
 
     def queues(self):
         #https://static.developer.riotgames.com/docs/lol/queues.json
-        r = requests.get('https://static.developer.riotgames.com/docs/lol/queues.json')
+        r = Consummer.getcall('https://static.developer.riotgames.com/docs/lol/queues.json','')
+        if r == False:
+            return 0
         champs=r.json()
         for d in champs:
             #d['_id']=d['queueId']
@@ -110,7 +101,9 @@ class masterdata:
             time.sleep(2)
             # https://euw1.api.riotgames.com/lol/summoner/v4/summoners/by-name/*
             # _id is the summoner Id for other endpoints. Nothing to do with accountId!
-            r = requests.get(str('https://euw1.api.riotgames.com/lol/summoner/v4/summoners/by-name/' +summ), headers=LOLheaders)
+            r = Consummer.getcall(str('https://euw1.api.riotgames.com/lol/summoner/v4/summoners/by-name/' +summ), secrets.LOLheaders)
+            if r == False:
+                continue
             query = """ REPLACE INTO lol_summoner
             (accountId, id, name, profileIconId, puuid, revisionDate, summonerLevel)
             VALUES 
@@ -118,7 +111,6 @@ class masterdata:
             summoner=r.json()
             #summoner["_id"]=summoner["id"]
             if "id" in summoner:
-                #pprint(summoner["revisionDate"])
                 #epoch to datetime
                 RevDate= time.strftime("%Y-%m-%d %H:%M:%S",  time.gmtime(summoner["revisionDate"]/1000.))
                 data = (summoner['accountId'],summoner['id'],summoner['name'],summoner['profileIconId'],summoner['puuid'],RevDate,summoner['summonerLevel'],)
@@ -147,18 +139,11 @@ class masterdata:
         for summ in results:
             summ=''.join(summ)
             time.sleep(2)
-            #https://euw1.api.riotgames.com/lol/league/v4/entries/by-summoner/JQSATYsSPpVVImQIBiJl4cGDCIt0hZsmhUcZDRpHsxbmb8U
-            r = requests.get(str('https://euw1.api.riotgames.com/lol/league/v4/entries/by-summoner/' +summ), headers=LOLheaders)
-            summoner=r.json()
-            
-            #Does the summoner plays LoL at all ?
-            if summoner == []:
+            #https://euw1.api.riotgames.com/lol/league/v4/entries/by-summoner/*
+            r = Consummer.getcall(str('https://euw1.api.riotgames.com/lol/league/v4/entries/by-summoner/' +summ), secrets.LOLheaders)
+            if r == False:
                 continue
-
-            if 'status' in summoner:
-                pprint(summoner)
-                time.sleep(500)
-
+            summoner=r.json()
 
             for summoner_data in summoner:
 
@@ -192,7 +177,7 @@ class masterdata:
                         cursor.close()
 
                 elif summoner_data["queueType"]=="RANKED_TFT_PAIRS":
-                    #THIS IS A TFT RANKED QUEUE COMING FROM THE LOL API !!!
+                    #THIS IS A TFT RANKED QUEUE COMING FROM THE LOL API ?!
                     summoner_ranked=summoner_data
                     #tft_league_ranked
                     
@@ -209,7 +194,6 @@ class masterdata:
                     data = (summoner_ranked['summonerId'],summoner_ranked['summonerName'],summoner_ranked['leagueId'],summoner_ranked['queueType'],tiertft,summoner_ranked['rank'],
                     summoner_ranked['leaguePoints'],summoner_ranked['wins'],summoner_ranked['losses'],str(summoner_ranked['veteran']),str(summoner_ranked['inactive']),str(summoner_ranked['freshBlood']),str(summoner_ranked['hotStreak']), CalcRating,date.today())
                     
-                    #pprint(check_sql_string(query, data))
                     
                     try:
                         # update
@@ -239,7 +223,6 @@ class masterdata:
                     data = (summoner_ranked['summonerId'],summoner_ranked['summonerName'],summoner_ranked['leagueId'],summoner_ranked['queueType'],summoner_ranked['tier'],summoner_ranked['rank'],
                     summoner_ranked['leaguePoints'],summoner_ranked['wins'],summoner_ranked['losses'],str(summoner_ranked['veteran']),str(summoner_ranked['inactive']),str(summoner_ranked['freshBlood']),str(summoner_ranked['hotStreak']), CalcRating,date.today())
                     
-                    #pprint(check_sql_string(query, data))
                     
                     try:
                         # update
@@ -271,16 +254,13 @@ class masterdata:
         for puuid in results:
             puuid=''.join(puuid)
             time.sleep(2)
-            #https://europe.api.riotgames.com/lol/match/v5/matches/by-puuid/Or7sMPubxkjKeXNJiNiLpVcxDB83zPSrMa5dR5inziMk2-ZV9am3iuH72ZJs72AB9gEur0yIaeEYaw/ids?start=0&count=100
-            r = requests.get(str('https://europe.api.riotgames.com/lol/match/v5/matches/by-puuid/'+puuid+'/ids?start=0&count=100'), headers=LOLheaders)
-            matches=r.json()
-            #Does the summoner plays LoL at all ?
-            if matches == []:
+            #https://europe.api.riotgames.com/lol/match/v5/matches/by-puuid/*/ids?start=0&count=100
+            r = Consummer.getcall(str('https://europe.api.riotgames.com/lol/match/v5/matches/by-puuid/'+puuid+'/ids?start=0&count=100'), secrets.LOLheaders)
+            if r == False:
                 continue
+            
+            matches=r.json()
 
-            if 'status' in matches:
-                pprint(matches)
-                time.sleep(500)
 
             for thismatch in matches:
 
@@ -305,9 +285,11 @@ class masterdata:
                         self.addthismatch(thismatch)
 
     def addthismatch(self, matchid):
-        #https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_5683062707
-        r = requests.get(str('https://europe.api.riotgames.com/lol/match/v5/matches/'+matchid), headers=LOLheaders)
+        #https://europe.api.riotgames.com/lol/match/v5/matches/*
+        r = Consummer.getcall(str('https://europe.api.riotgames.com/lol/match/v5/matches/'+matchid), secrets.LOLheaders)
         time.sleep(3)
+        if r == False:
+            return 0
         thisMatch=r.json()
 
         if 'info' not in thisMatch:
@@ -349,7 +331,6 @@ class masterdata:
             thisMatch['info']['gameDuration'],gameEndTimestamp,thisMatch['info']['gameMode'],thisMatch['info']['gameName'], gameStartTimestamp, thisMatch['info']['gameType'],
             thisMatch['info']['gameVersion'], thisMatch['info']['mapId'], json.dumps(thisMatch['info']['participants']))
             
-            #pprint(check_sql_string(query, data))
             
             try:
                 # update
