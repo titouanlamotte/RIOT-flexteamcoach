@@ -37,7 +37,7 @@ class tft(commands.Cog):
         query = """SELECT s.*
                 FROM (
                     SELECT MAX(LastUpdateDate) as MaxTime
-                    FROM tft_league_ranked
+                    FROM tft_league_ranked LIMIT 1
                 ) r
                 INNER JOIN tft_league_ranked s
                 ON s.LastUpdateDate = r.MaxTime
