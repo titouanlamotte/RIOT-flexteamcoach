@@ -36,12 +36,11 @@ class tft(commands.Cog):
         cursor = conn.cursor(dictionary=True)
         query = """SELECT s.*
                 FROM (
-                    SELECT summonerId, MAX(LastUpdateDate) as MaxTime
+                    SELECT MAX(LastUpdateDate) as MaxTime
                     FROM tft_league_ranked
-                    GROUP BY summonerId
                 ) r
                 INNER JOIN tft_league_ranked s
-                ON s.summonerId = r.summonerId AND s.LastUpdateDate = r.MaxTime
+                ON s.LastUpdateDate = r.MaxTime
                 ORDER BY s.CalcRating DESC"""
         cursor = conn.cursor(dictionary=True)
         cursor.execute(query)
