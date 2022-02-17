@@ -3,9 +3,7 @@ mysql-connector-python
 
 ###         Requirements Discord bot        ###
 discord
-html2text
 
 ###          Requirements Crawler           ###
 
-
-
+###                                         ###

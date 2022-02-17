@@ -60,7 +60,7 @@ class tft(commands.Cog):
         #TFT TURBO
         embedVarTurbo = discord.Embed(title="⚔️ Teamfight Tactics Turbo rankings", description=str("as of today: "+str(date.today().strftime("%B %d, %Y"))), color=0x00ffff)
         cursor = conn.cursor(dictionary=True)
-        query = """SSELECT s.*
+        query = """SELECT s.*
                 FROM (
                     SELECT MAX(LastUpdateDate) as MaxTime
                     FROM tft_league_ranked_turbo
