@@ -55,8 +55,7 @@ class tft(commands.Cog):
             if count > 4:
                 count = 4
             embedVar.add_field(name=str(str(tiers[d['tier']])+" "+d['summonerName']+" "+rankings[count]), value=str(d['tier'][0]+". "+d["tftrank"]+" "+str(str(d['leaguePoints'])+" LP")), inline=True)
-        #send message
-        await ctx.send(embed=embedVar)
+
 
         #TFT TURBO
         embedVarTurbo = discord.Embed(title="⚔️ Teamfight Tactics Turbo rankings", description=str("as of today: "+str(date.today().strftime("%B %d, %Y"))), color=0x00ffff)
@@ -85,6 +84,7 @@ class tft(commands.Cog):
                 count = 4
             embedVarTurbo.add_field(name=str(str(tiers[d['ratedTier']])+" "+d['summonerName']+" "+rankings[count]), value=str(d['ratedTier']+" "+str(str(d['ratedRating'])+" LP")), inline=True)
         #send message
+        await ctx.send(embed=embedVar)
         await ctx.send(embed=embedVarTurbo)
 
 
