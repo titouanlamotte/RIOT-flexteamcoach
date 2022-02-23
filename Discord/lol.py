@@ -168,15 +168,15 @@ class lol(commands.Cog):
         "JUNGLE":"<:Pos_Jungle:932233525854347334>","TOP":"<:Pos_TopLane:932233525929857064>"}
 
 
-        embedVar.add_field(name=str(Positions['TOP']+" Cartuosoruse"), value=str('Tier IV'))
+        embedVar.add_field(name=str(Positions['TOP']+" xxx"), value=str('Tier xx'))
 
-        embedVar.add_field(name=str(Positions['JUNGLE']+" Nesuw"), value=str('Tier II'))
+        embedVar.add_field(name=str(Positions['JUNGLE']+" xxx"), value=str('Tier xx'))
  
-        embedVar.add_field(name=str(Positions['MID']+" Crilik"), value=str('Tier IV'))
+        embedVar.add_field(name=str(Positions['MID']+" xxx"), value=str('Tier xx'))
 
-        embedVar.add_field(name=str(Positions['ADC']+"  Forddead"), value=str('Tier II'))
+        embedVar.add_field(name=str(Positions['ADC']+"  xxx"), value=str('Tier xx'))
 
-        embedVar.add_field(name=str(Positions['SUPPORT']+"  Wialaë"), value=str('Tier III'))
+        embedVar.add_field(name=str(Positions['SUPPORT']+"  xxx"), value=str('Tier xx'))
         embedVar.add_field(name=str("🏆"), value=str("🏆"))
 
         await ctx.send(embed=embedVar)
