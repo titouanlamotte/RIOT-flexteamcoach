@@ -75,7 +75,7 @@ class tft(commands.Cog):
         count = 0
         rankings={1:'🥇',2:'🥈',3:'🥉',4:''}
         tiers={"GRAY":"<:TFT_Hyper_Roll_1Grey:932250917066129449>","GREEN":"<:TFT_Hyper_Roll_2Green:932250917317783602>","BLUE":"<:TFT_Hyper_Roll_3Blue:932250917393268806>",
-        "PURPLE":"<:TFT_Hyper_Roll_4Purple:932250917594607646>","HYPER":"<:TFT_Hyper_Roll_5Hyper:932250917586214932>"}
+        "PURPLE":"<:TFT_Hyper_Roll_4Purple:932250917594607646>","ORANGE":"<:TFT_Hyper_Roll_5Hyper:932250917586214932>"}
         #rankings gen
         for d in data:
             #rankings counter
