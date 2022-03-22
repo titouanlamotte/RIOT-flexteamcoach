@@ -83,12 +83,14 @@ class tft(commands.Cog):
         for d in data:
             #HYPER is stored as ORANGE in the API
             if d['ratedTier'] == 'ORANGE':
-                d['ratedTier'] = 'HYPER'
+                d['DisplayTier'] = 'HYPER'
+            else:
+               d['DisplayTier'] = d['ratedTier']
             #rankings counter
             count = count+1
             if count > 4:
                 count = 4
-            embedVarTurbo.add_field(name=str(str(tiers[d['ratedTier']])+" "+d['summonerName']+" "+rankings[count]), value=str(d['ratedTier']+" "+str(str(d['ratedRating'])+" LP")), inline=True)
+            embedVarTurbo.add_field(name=str(str(tiers[d['ratedTier']])+" "+d['summonerName']+" "+rankings[count]), value=str(d['DisplayTier']+" "+str(str(d['ratedRating'])+" LP")), inline=True)
         #send message
         await ctx.send(embed=embedVar)
         await ctx.send(embed=embedVarTurbo)
