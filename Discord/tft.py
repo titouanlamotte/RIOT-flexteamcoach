@@ -11,17 +11,55 @@ from databases import *
 class tft(commands.Cog):
     def __init__(self, client):
         self.client = client
-   
-   
-   
-    @tasks.loop(hours=3)
-    async def batch_tft_match(self):
+        # For Tasks
+        self.index = 0
+        #self.bot = bot
+        self.printer.start()
+
+    def cog_unload(self):
+        self.printer.cancel()
+
+    @tasks.loop(seconds=5.0)
+    async def printer(self):
+        print(self.index)
+        self.index += 1
+
+    @printer.before_loop
+    async def before_printer(self):
+        print('waiting...')
+        await self.bot.wait_until_ready()
+
+        
+    @tasks.loop(hours=10)
+    async def batch_tft_match_top8(self, ctx):
         try:
-            await tft.TFT()
-            print("TFT Batch success")
+            #await tft.TFT()
+            #select m.game_datetime, m.gold_left, s.name from tft_matches m INNER JOIN tft_summoner s ON s.puuid= m.participant_puuid WHERE m.game_datetime >= DATE_SUB(NOW(),INTERVAL 1 YEAR) AND m.placement = 8;
+            cursor = conn.cursor(dictionary=True)
+            query = """
+                    select m.game_datetime, m.gold_left, s.name from tft_matches m 
+                    INNER JOIN tft_summoner s ON s.puuid= m.participant_puuid 
+                    WHERE m.game_datetime >= DATE_SUB(NOW(),INTERVAL 10 HOURS) 
+                    AND m.placement = 8;
+                    """
+            cursor = conn.cursor(dictionary=True)
+            cursor.execute(query)
+            data=cursor.fetchall()
+            if data.length() > 0:
+                embedVarTop8 = discord.Embed(title="🤔 Teamfight Tactics TOP 8 of yesterday", description=str("as of today: "+str(date.today().strftime("%B %d, %Y"))), color=0x00ffff) 
+                for d in data:
+                    embedVarTop8.add_field(name=str(), value=str(), inline=True)
+                #send message into the TFT channel
+                channel = discord.utils.get(ctx.guild.channels, name="")
+                channel_id = channel.id
+                await ctx.send(embed=embedVarTop8)
+
+            else:
+                print("no top8")
+                pprint(data)
+
         except Exception as e:
             print(f"TFT Batch Error {e}")
-
 
 
     @commands.command(pass_context=True, brief='!TFT 🍻', description='')

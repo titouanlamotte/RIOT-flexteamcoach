@@ -185,8 +185,9 @@ class lol(commands.Cog):
 
 
     @commands.command(pass_context=True, brief='!LOLRANKED 🍻', description='')
-    async def LOLRANKED(self, ctx):
-        embedVar = discord.Embed(title="⚔️ loL RANKED_SOLO_5x5 ranking", description=str("as of today: "+str(date.today().strftime("%B %d, %Y"))), color=0x00ffff)
+    async def LOL(self, ctx):
+        #SOLOQUEUE
+        embedVarSolo = discord.Embed(title="⚔️ loL RANKED_SOLO_5x5 ranking", description=str("as of today: "+str(date.today().strftime("%B %d, %Y"))), color=0x00ffff)
         pprint("!TFT") 
         cursor = conn.cursor(dictionary=True)
         query = """SELECT s.*
@@ -215,17 +216,10 @@ class lol(commands.Cog):
             count = count+1
             if count > 4:
                 count = 4
-            embedVar.add_field(name=str(str(tiers[d['tier']])+" "+d['summonerName']+" "+rankings[count]), value=str(d['tier'][0]+". "+d["lolrank"]+" "+str(str(d['leaguePoints'])+" LP")), inline=True)
-
-
-        await ctx.send(embed=embedVar)    
-
-
-
-
-    @commands.command(pass_context=True, brief='!LOLRANKED 🍻', description='')
-    async def LOLFLEX(self, ctx):
-        embedVar = discord.Embed(title="⚔️ loL RANKED_SOLO_FLEX ranking", description=str("as of today: "+str(date.today().strftime("%B %d, %Y"))), color=0x00ffff)
+            embedVarSolo.add_field(name=str(str(tiers[d['tier']])+" "+d['summonerName']+" "+rankings[count]), value=str(d['tier'][0]+". "+d["lolrank"]+" "+str(str(d['leaguePoints'])+" LP")), inline=True)
+   
+        #FLEXQUEUE
+        embedVarFlex = discord.Embed(title="⚔️ loL RANKED_SOLO_FLEX ranking", description=str("as of today: "+str(date.today().strftime("%B %d, %Y"))), color=0x00ffff)
         pprint("!LOLRANKED") 
         cursor = conn.cursor(dictionary=True)
         query = """SELECT s.*
@@ -254,10 +248,10 @@ class lol(commands.Cog):
             count = count+1
             if count > 4:
                 count = 4
-            embedVar.add_field(name=str(str(tiers[d['tier']])+" "+d['summonerName']+" "+rankings[count]), value=str(d['tier'][0]+". "+d["lolrank"]+" "+str(str(d['leaguePoints'])+" LP")), inline=True)
+            embedVarFlex.add_field(name=str(str(tiers[d['tier']])+" "+d['summonerName']+" "+rankings[count]), value=str(d['tier'][0]+". "+d["lolrank"]+" "+str(str(d['leaguePoints'])+" LP")), inline=True)
 
-
-        await ctx.send(embed=embedVar)
+        await ctx.send(embed=embedVarSolo)  
+        await ctx.send(embed=embedVarFlex)
 
 
     @commands.command(pass_context=True, brief='!NoSoul 🍻', description='')
