@@ -206,10 +206,10 @@ class lol(commands.Cog):
         #Text format data
         count = 0
         rankings={1:'🥇',2:'🥈',3:'🥉',4:''}
-        tiers={"IRON":"<:Season_2022_1_Iron:931897114257154068>","BRONZE":"<:Season_2022_2_Bronze:931897121446166579>","SILVER":"<:Season_2022_3_Silver:931897130925318224>",
-        "GOLD":"<:Season_2022_4_Gold:931897140136013884>","PLATINUM":"<:Season_2022_5_Platinum:931897148520431696>","DIAMOND":"<:Season_2022_6_Diamond:931897156481204236>",
-        "MASTER":"<:Season_2022_7_Master:931897166019051565>","GRANDMASTER":"<:Season_2022_8_Grandmaster:931897175150051479>",
-        "CHALLENGER":"<:Season_2022_9_Challenger:931897186571145216>"}
+        tiers={"IRON":"<:S2022_1_Iron:931897114257154068>","BRONZE":"<:S2022_2_Bronze:931897121446166579>","SILVER":"<:S2022_3_Silver:931897130925318224>",
+        "GOLD":"<:S2022_4_Gold:931897140136013884>","PLATINUM":"<:S2022_5_Platinum:931897148520431696>","DIAMOND":"<:S2022_6_Diamond:931897156481204236>",
+        "MASTER":"<:S2022_7_Master:931897166019051565>","GRANDMASTER":"<:S2022_8_Grandmaster:931897175150051479>",
+        "CHALLENGER":"<:S2022_9_Challenger:931897186571145216>"}
 
         for d in data:
             #rankings counter
@@ -238,10 +238,10 @@ class lol(commands.Cog):
         #Text format data
         count = 0
         rankings={1:'🥇',2:'🥈',3:'🥉',4:''}
-        tiers={"IRON":"<:Season_2022_1_Iron:931897114257154068>","BRONZE":"<:Season_2022_2_Bronze:931897121446166579>","SILVER":"<:Season_2022_3_Silver:931897130925318224>",
-        "GOLD":"<:Season_2022_4_Gold:931897140136013884>","PLATINUM":"<:Season_2022_5_Platinum:931897148520431696>","DIAMOND":"<:Season_2022_6_Diamond:931897156481204236>",
-        "MASTER":"<:Season_2022_7_Master:931897166019051565>","GRANDMASTER":"<:Season_2022_8_Grandmaster:931897175150051479>",
-        "CHALLENGER":"<:Season_2022_9_Challenger:931897186571145216>"}
+        tiers={"IRON":"<:S2022_1_Iron:931897114257154068>","BRONZE":"<:S2022_2_Bronze:931897121446166579>","SILVER":"<:S2022_3_Silver:931897130925318224>",
+        "GOLD":"<:S2022_4_Gold:931897140136013884>","PLATINUM":"<:S2022_5_Platinum:931897148520431696>","DIAMOND":"<:S2022_6_Diamond:931897156481204236>",
+        "MASTER":"<:S2022_7_Master:931897166019051565>","GRANDMASTER":"<:S2022_8_Grandmaster:931897175150051479>",
+        "CHALLENGER":"<:S2022_9_Challenger:931897186571145216>"}
 
         for d in data:
             #rankings counter
