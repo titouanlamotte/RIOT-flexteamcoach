@@ -350,10 +350,10 @@ class masterdata:
 def main():
 
     job = masterdata()
-    #job.addsummoner()
-    job.queues()
-    job.addleague()
-    job.addmatches()
+    job.addsummoner()
+    #job.queues()
+    #job.addleague()
+    #job.addmatches()
 
 if __name__ == "__main__":
     main()

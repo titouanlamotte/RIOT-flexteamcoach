@@ -11,7 +11,7 @@ import secrets
 
 # Discord Bot Token
 #TOKEN = ""
-client = commands.Bot(command_prefix= '!')
+client = commands.Bot(command_prefix= '!', case_insensitive=True)
 
 # Cog list
 extensions = ['admin','lol','tft']
