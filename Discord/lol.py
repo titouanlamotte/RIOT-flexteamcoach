@@ -70,7 +70,7 @@ class lol(commands.Cog):
 
         await ctx.send(embed=embedVar)
 
-    @commands.command(pass_context=True, brief='!lol_count_masterie 🍻', description='')
+    @commands.command(pass_context=True, brief='!lol_count_masteries 🍻', description='')
     async def lol_count_masteries(self, ctx):
         embedVar = discord.Embed(title="Our LoL best champions 🍻", description="LoL masteries for all of us", color=0xff00ff)
         #work = LeagueOfLegends.lolanalysis()

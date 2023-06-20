@@ -4,10 +4,11 @@ from discord.ext import commands, tasks
 from datetime import date
 from pprint import pprint
 
-
 from secrets import *
 from databases import *
-   
+
+from subpackage import *
+
 class tft(commands.Cog):
     def __init__(self, client):
         self.client = client
@@ -64,7 +65,8 @@ class tft(commands.Cog):
 
     @commands.command(pass_context=True, brief='!TFT 🍻', description='')
     async def TFT(self, ctx):
-
+        subpackage.Runner.job.addleague()
+        subpackage.Runner.job.addleaguepairs()
         #TFT SOLO QUEUE
         embedVar = discord.Embed(title="⚔️ Teamfight Tactics SoloQ rankings", description=str("as of today: "+str(date.today().strftime("%B %d, %Y"))), color=0x00ffff) 
         cursor = conn.cursor(dictionary=True)
@@ -129,9 +131,42 @@ class tft(commands.Cog):
             if count > 4:
                 count = 4
             embedVarTurbo.add_field(name=str(str(tiers[d['ratedTier']])+" "+d['summonerName']+" "+rankings[count]), value=str(d['DisplayTier']+" "+str(str(d['ratedRating'])+" LP")), inline=True)
+        
+        #PAIRS/DUO
+        embedVarDuo = discord.Embed(title="⚔️ Teamfight Tactics DUO rankings", description=str("as of today: "+str(date.today().strftime("%B %d, %Y"))), color=0x00ffff)
+        cursor = conn.cursor(dictionary=True)
+        query = """SELECT s.*
+                FROM (
+                    SELECT summonerId, MAX(LastUpdateDate) as MaxTime
+                    FROM tft_league_ranked_pairs
+                    GROUP BY summonerId
+                ) r
+                INNER JOIN tft_league_ranked_pairs s
+                ON s.summonerId = r.summonerId AND s.LastUpdateDate = r.MaxTime
+                ORDER BY s.CalcRating DESC"""
+        cursor = conn.cursor(dictionary=True)
+        cursor.execute(query)
+        data=cursor.fetchall()
+
+        #Text format data
+        count = 0
+        rankings={1:'🥇',2:'🥈',3:'🥉',4:''}
+        tiers={"IRON":"<:S2022_1_Iron:931897114257154068>","BRONZE":"<:S2022_2_Bronze:931897121446166579>","SILVER":"<:S2022_3_Silver:931897130925318224>",
+        "GOLD":"<:S2022_4_Gold:931897140136013884>","PLATINUM":"<:S2022_5_Platinum:931897148520431696>","DIAMOND":"<:S2022_6_Diamond:931897156481204236>",
+        "MASTER":"<:S2022_7_Master:931897166019051565>","GRANDMASTER":"<:S2022_8_Grandmaster:931897175150051479>",
+        "CHALLENGER":"<:S2022_9_Challenger:931897186571145216>"}
+
+        for d in data:
+            #rankings counter
+            count = count+1
+            if count > 4:
+                count = 4
+            embedVarDuo.add_field(name=str(str(tiers[d['tier']])+" "+d['summonerName']+" "+rankings[count]), value=str(d['tier'][0]+". "+d["tftrank"]+" "+str(str(d['leaguePoints'])+" LP")), inline=True)
+        
         #send message
         await ctx.send(embed=embedVar)
         await ctx.send(embed=embedVarTurbo)
+        await ctx.send(embed=embedVarDuo)
 
 
 
