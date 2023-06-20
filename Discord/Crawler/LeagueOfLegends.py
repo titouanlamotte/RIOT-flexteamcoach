@@ -184,7 +184,7 @@ class masterdata:
                     Tiers_LP_values={"IRON":0,"BRONZE":400,"SILVER":800,"GOLD":1200,"PLATINUM":1600,"DIAMOND":2000,"MASTER":2400,"GRANDMASTER":2400,"CHALLENGER":2400}
                     tftrank_LP_values={"IV":0,"III":100,"II":200,"I":300}
                     CalcRating = Tiers_LP_values[summoner_ranked['tier']] + tftrank_LP_values[summoner_ranked['rank']] +summoner_ranked['leaguePoints']
-                    CalcRating = summoner_ranked['leaguePoints']
+                    #CalcRating = summoner_ranked['leaguePoints']
                     #tiertft = summoner_ranked['leaguePoints']
                     summoner_ranked['leagueId'] = "RANKED_TFT_DOUBLE_UP"
                     #summoner_ranked['rank'] = summoner_ranked['leaguePoints']
