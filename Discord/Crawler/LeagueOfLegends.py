@@ -168,7 +168,7 @@ class masterdata:
                         cursor.execute(query, data)
                         # accept the changes
                         conn.commit()
-                        pprint(str("lol_league_ranked_solo: ")+summoner_ranked['summonerName'])
+                        pprint(str("lol_league_ranked_flex: ")+summoner_ranked['summonerName'])
 
                     except Error as error:
                         print(error)
