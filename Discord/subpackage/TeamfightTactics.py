@@ -118,7 +118,7 @@ class masterdata:
                 continue
             else:
                 summoner=r.json()
-                
+
                 #Does the summoner plays at all ?
                 if summoner == []:
                     continue
@@ -126,7 +126,6 @@ class masterdata:
                 if 'status' in summoner:
                     pprint(summoner)
                     time.sleep(60)
-
 
                 for summoner_data in summoner:
                     if summoner_data["queueType"]=="RANKED_TFT_DOUBLE_UP":#RANKED_TFT_DOUBLE_UP old RANKED_TFT_PAIRS
@@ -146,8 +145,7 @@ class masterdata:
                         VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s) """
                         data = (summoner_ranked['summonerId'],summoner_ranked['summonerName'],summoner_ranked['leagueId'],summoner_ranked['queueType'],summoner_ranked['tier'],summoner_ranked['rank'],
                         summoner_ranked['leaguePoints'],summoner_ranked['wins'],summoner_ranked['losses'],str(summoner_ranked['veteran']),str(summoner_ranked['inactive']),str(summoner_ranked['freshBlood']),str(summoner_ranked['hotStreak']), CalcRating,date.today())
-                        
-                        
+
                         try:
                             # update
                             cursor = conn.cursor()
@@ -166,6 +164,7 @@ class masterdata:
 def main():
 
     job = masterdata()
-
+    #job.addleaguepairs()
+    
 if __name__ == "__main__":
     main()

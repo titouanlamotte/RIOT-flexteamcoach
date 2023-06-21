@@ -25,7 +25,7 @@ class admin(commands.Cog):
         print('clear by '+str(ctx.author))
         CurrentUser= hashlib.sha256(bytes(str(ctx.author), encoding='utf8'))
         #pprint(CurrentUser.hexdigest())
-        if CurrentUser.hexdigest() == "3d0ac4dd79f7ad27aa5f0e84af563459b4fe267015e4533e8bbe6d75541ff36a":
+        if CurrentUser.hexdigest() == "a5f5205d60ec7db27d95d3266738f1d588724775440bb898a735e29905b5cd57":
             await ctx.channel.purge(limit=amount)
         else:
             await ctx.send(f'user {ctx.author} not allowed')

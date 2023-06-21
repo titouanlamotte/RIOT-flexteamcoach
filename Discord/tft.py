@@ -30,7 +30,6 @@ class tft(commands.Cog):
         print('waiting...')
         await self.bot.wait_until_ready()
 
-        
     @tasks.loop(hours=10)
     async def batch_tft_match_top8(self, ctx):
         try:
