@@ -65,8 +65,8 @@ class tft(commands.Cog):
 
     @commands.command(pass_context=True, brief='!TFT 🍻', description='')
     async def TFT(self, ctx):
-        Runner.tft.job.addleague() #subpackage.
-        Runner.tft.job.addleaguepairs() #subpackage.
+        #Runner.tft.job.addleague() #subpackage.
+        #Runner.tft.job.addleaguepairs() #subpackage.
         #TFT SOLO QUEUE
         embedVar = discord.Embed(title="⚔️ Teamfight Tactics SoloQ rankings", description=str("as of today: "+str(date.today().strftime("%B %d, %Y"))), color=0x00ffff) 
         cursor = conn.cursor(dictionary=True)
