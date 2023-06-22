@@ -30,18 +30,19 @@ class tft(commands.Cog):
         print('waiting...')
         await self.bot.wait_until_ready()
 
+    """
     @tasks.loop(hours=10)
     async def batch_tft_match_top8(self, ctx):
         try:
             #await tft.TFT()
             #select m.game_datetime, m.gold_left, s.name from tft_matches m INNER JOIN tft_summoner s ON s.puuid= m.participant_puuid WHERE m.game_datetime >= DATE_SUB(NOW(),INTERVAL 1 YEAR) AND m.placement = 8;
             cursor = conn.cursor(dictionary=True)
-            query = """
+            query = "
                     select m.game_datetime, m.gold_left, s.name from tft_matches m 
                     INNER JOIN tft_summoner s ON s.puuid= m.participant_puuid 
                     WHERE m.game_datetime >= DATE_SUB(NOW(),INTERVAL 10 HOURS) 
                     AND m.placement = 8;
-                    """
+                    "
             cursor = conn.cursor(dictionary=True)
             cursor.execute(query)
             data=cursor.fetchall()
@@ -60,7 +61,7 @@ class tft(commands.Cog):
 
         except Exception as e:
             print(f"TFT Batch Error {e}")
-
+    """
 
     @commands.command(pass_context=True, brief='!TFT 🍻', description='')
     async def TFT(self, ctx):
