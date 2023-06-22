@@ -7,7 +7,7 @@ from pprint import pprint
 from secrets import *
 from databases import *
 
-from subpackage import Runner
+#from subpackage import Runner
 
 class tft(commands.Cog):
     def __init__(self, client):
