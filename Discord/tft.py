@@ -7,7 +7,7 @@ from pprint import pprint
 from secrets import *
 from databases import *
 
-from subpackage import *
+from subpackage import Runner
 
 class tft(commands.Cog):
     def __init__(self, client):
@@ -65,8 +65,8 @@ class tft(commands.Cog):
 
     @commands.command(pass_context=True, brief='!TFT 🍻', description='')
     async def TFT(self, ctx):
-        subpackage.Runner.job.addleague()
-        subpackage.Runner.job.addleaguepairs()
+        Runner.tft.job.addleague() #subpackage.
+        Runner.tft.job.addleaguepairs() #subpackage.
         #TFT SOLO QUEUE
         embedVar = discord.Embed(title="⚔️ Teamfight Tactics SoloQ rankings", description=str("as of today: "+str(date.today().strftime("%B %d, %Y"))), color=0x00ffff) 
         cursor = conn.cursor(dictionary=True)
